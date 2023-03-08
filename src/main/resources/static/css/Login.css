@@ -1,0 +1,45 @@
+#loginTab{
+    margin-left:29%;
+    margin-bottom:4%;
+}
+#loginTab button{
+    margin-left:29%;
+}
+#idArea{
+    margin-top:5%;
+}
+
+#setLogin{
+margin-left:25%;
+}
+#pwArea{
+    margin-top:2%;
+    margin-bottom:2%;
+}
+#logOut{
+margin-left:92%;
+}
+#idArea input{
+    width:500px;
+}
+#pwArea{
+    margin-left:-20px;
+}
+#pwArea input{
+    width:500px;
+}
+#viewPage{
+    margin-left:30%;
+    margin-top:10%;}
+
+#renewDateArea{
+    margin-left:80%;
+    margin-bottom:-30px;
+}
+
+
+.card .mb-4{
+    margin-left:1.3%;
+}
+
+

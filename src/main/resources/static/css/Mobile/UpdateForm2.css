@@ -1,0 +1,17 @@
+
+label{
+    padding-left:1.5%;
+    color:#828282;
+}
+
+h8.text-center.font-weight-light.my-4{
+    margin-left:20%;
+}
+#btnArea{
+    margin-left:33%;
+}
+
+.form-floating > .form-control:focus, .form-floating > .dataTable-input:focus, .form-floating > .form-control:not(:placeholder-shown), .form-floating > .dataTable-input:not(:placeholder-shown) {
+    padding-top:1.5rem;
+    padding-left: 2.125rem;
+}
