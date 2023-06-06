@@ -1,0 +1,246 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/Error.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
+<title>방문자 수정 Form</title>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Register - SB Admin</title>
+
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <style>
+        input{
+            text-align:center;
+        }
+        label{
+            margin-left:1%;
+            margin-top:0.5%;
+        }
+
+    </style>
+
+</head>
+<body class="bg-primary">
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    window.onload = function(){
+        visitDateInput();
+        insertQty();
+    }
+
+    function insertQty(){
+        document.getElementById('qty').addEventListener('change',function() {
+            let qty = document.getElementById('qty').value;
+            let hiddenQty = document.getElementById('hiddenQty').innerText;
+            if(Number(qty)>Number(hiddenQty)){
+                alert("등록 가능 인원수보다 많을 수는 없습니다.");
+                document.getElementById("qty").value = "";
+            }
+
+        });
+    }
+  function sendDeleteFrm(){
+      let reservationId = document.getElementById('id').value;
+
+        if(confirm("삭제 하시겠습니까?")){
+        location.href = '/dinner/info/delete/'+reservationId;
+        }
+        else{
+                location.href = '/dinner/info/update/'+reservationId;
+        }
+    }
+
+
+    let insertedValue = [[${hiddenValue}]].toString();
+    let year = Number(insertedValue.split('-')[0])
+    let month =Number(insertedValue.split('-')[1])
+    let day = Number(insertedValue.split('-')[2])
+    let date = '['+year+'년'+month+'월'+day+'일]';
+
+    function visitDateInput(){
+        document.getElementById('visit_date').addEventListener('change',function(){
+            let visit_date = document.getElementById('visit_date').value;
+            let inputYear = Number(visit_date.split('-')[0]);
+            let inputMonth = Number(visit_date.split('-')[1]);
+            let inputDay = Number(visit_date.split('-')[2]);
+            if(inputYear<=year){
+                if(inputYear<year){
+                    alert('예약 일정이 입력한 날짜 '+date+' 보다 전일 수는 없습니다.');
+                    document.getElementById('visit_date').value = insertedValue;
+                }
+                else{
+                    if(inputMonth<month){
+                        alert('예약 일정이 입력한 날짜 '+date+' 보다 전일 수는 없습니다.');
+                        document.getElementById('visit_date').value = insertedValue;
+                    }
+                    if(inputMonth==month){
+                        if(inputDay<day){
+                            alert('예약 일정이 입력한 일자 '+date+' 보다 같거나 전일 수는 없습니다.');
+                            document.getElementById('visit_date').value = insertedValue;
+                        }
+                    }
+                }
+            }
+        })};
+
+
+    function setCheck(){
+        let reservationId = document.getElementById('idKey').value();
+
+        if(confirm("예약내역을 수정 하시겠습니까?")){
+            let form = document.createElement('form');
+            form.setAttribute('method','post');
+            form.setAttribute('action','/dinner/info/update/'+reservationId);
+            document.body.append(form);
+            form.submit();
+        }
+        else{
+            window.location.href = '/dinner/info/update/'+reservationId;
+        }
+
+    }
+
+
+    // function setCheck(){
+    //         let form = document.createElement('form');
+    //         form.setAttribute('method','post');
+    //         form.setAttribute('action','/dinner/info/update/'+reservationId);
+    //         document.body.append(form);
+    //         form.submit();
+    // }
+
+    /*]]>*/
+</script>
+
+<script src="js/scripts.js"></script>
+
+
+<div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+        <main>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-7">
+                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <div class="card-header"><h3 class="text-center font-weight-light my-4">
+                                <img th:src="@{/images/rapigen_logo.png}" width="180"/>         석식 예약 등록(수정)
+                            </h3>
+                            </div>
+                            <div class="card-body">
+                                <span>등록 가능 인원수 : <span id="hiddenQty" class="star" th:value = "${hiddenQty}" th:text="${hiddenQty}"></span>명</span>
+                                <h6 id="clock" style="color:black;">clock</h6>
+
+                                <form role="form" th:object="${reservation}" method="post" >
+                                    <div class="col-md-6">
+                                        <div th:if="${#fields.hasGlobalErrors()}">
+                                            <p class="field-error"  id="globalError" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:1%;">
+                                        <h4><b>석식 등록 정보(수정)  </b><img th:src="@{/images/pencil.png}" width="25"/></h4>
+                                         <hr>
+                                        <br>
+                                        <div>
+                                        <input type="hidden" th:field="*{id}">
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <label th:for="loginId" id="loginIdLabel">아이디</label>
+                                                    <input type="text" th:field="*{loginId}" class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <label th:for="employee_name" id="employeeNameLabel">이름</label>
+                                                    <input type="text" th:field="*{employee_name}" class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3 mb-md-0">
+                                            <label th:for="phone_number" id="phoneNumberLabel">연락처</label>
+                                            <input type="text" th:field="*{phone_number}" class="form-control"
+                                                   th:class="${#fields.hasErrors('phone_number')}? 'form-control fieldError' : 'form-control'">
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <div class="form-floating mb-3 mb-md-0">
+                                                <label th:for="qty" id="qtyLabel">인원(본인포함)</label>
+
+                                                <input type="text" th:field="*{qty}" class="form-control"
+                                                       th:class="${#fields.hasErrors('qty')}? 'form-control fieldError' : 'form-control'">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3 mb-md-0">
+                                            <label th:for="visit_date" id="visitDateLabel">예약일 </label>
+                                            <input type="date" th:field="*{visit_date}" class="form-control"
+                                                   th:class="${#fields.hasErrors('visit_date')}? 'form-control fieldError' : 'form-control'" readonly>
+                                    </div>
+                                    </div>
+                                 </div>
+
+                                    <div class="row mb-3">
+                                        <div>
+                                            <div class="form-floating mb-3 mb-md-0" title="내용 입력">
+                                                <label th:for="contents" id="contents" > 내용</label>
+                                                <input type="text" th:field="*{contents}" class="form-control"
+                                                       th:class="${#fields.hasErrors('contents')}? 'form-control fieldError' : 'form-control'">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                      <div style="margin-left:45%;">
+                                       <button type="submit" class="btn btn-primary btn-block">submit</button>
+                                          <span th:if="${session.ADMIN_ID!=null}">
+                                          </span>
+                                     </form>
+                                <span class="btn btn-primary btn-block" id="deleteBtn" onclick="sendDeleteFrm();"> 삭제</span>
+                                </span>
+                            </div>
+
+                     </div>
+
+                        <div class="card-footer text-center py-3">
+                            <div class="small"><a th:href="@{/dinner/info/dateOfQty}">HOME</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </main>
+    </div>
+
+    <div id="layoutAuthentication_footer">
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript" th:src="@{/js/logOut.js}"></script>
+<script type="text/javascript" th:src="@{/js/clock.js}"></script>
+
+</body>
+</html>

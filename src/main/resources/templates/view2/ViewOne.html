@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" th:href="@{/css/Error.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/ViewOne.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
+<title>방문자 조회</title>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Register - SB Admin</title>
+
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-primary">
+<div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+        <main>
+            <div id="layoutSidenav_content">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-7">
+                            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                <span class="card-header">
+                                    <h3 class="text-center font-weight-light my-4">
+                                    <img th:src="@{/images/rapigen_logo.png}" width="200"/>  석식 예약 상세</h3>
+                                </span>
+                                <div class="card-body">
+                                    <h6 id="clock" style="color:black;">clock</h6>
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <i class="fas fa-table me-1"></i>
+                                            상세 내용
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="contents" th:object="${reservation}">
+                                                <ol> 예약자(부서) :  <span th:text="${reservation.employee_name}+'('+${reservation.part_name}+')'"></span></ol>
+                                                <ol> 총 인원 :  <span th:text="${reservation.qty}"></span></ol>
+                                                <ol> 내용 :  <span th:text="${reservation.contents}"></span></ol>
+                                                <ol> 예약일 :  <span th:text="${reservation.visit_date}"></span></ol>
+                                                <ol> 등록일자 :  <span th:text="${reservation.write_date}"></span></ol>
+                                                <ol> 연락처 :  <span th:text="${reservation.phone_number}"></span></ol>
+                                                <ol> 접수 여부 :
+                                                    <span th:if="${reservation.is_checked==true}">
+                                                        <span th:text="'접수확인 ['+${reservation.checked_date.toString()}+']'"></span>
+                                                    </span>
+                                                    <span th:if="${reservation.is_checked==false}">
+                                                           <span>미접수</span>
+                                                     </span>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                            <div id = "btnArea">
+                                                <a th:href="@{/dinner/info/all}"> <button class="btn btn-primary btn-block"> 목록보기</button></a>
+                                                <a th:href="@{/dinner/info/update/check/{id} (id=${reservation.id})}" role="button" class="btn btn-primary btn-block">수정하기</a>
+                                            </div>
+                                        </div>
+                                      </div>
+                                    <div class="card-footer text-center py-3">
+                                        <div class="small"><a th:href="@{/dinner/info/dateOfQty}">HOME</a></div>
+                                    </div>
+                        </div>
+                    </div>
+                </div>
+        </main>
+    </div>
+
+    <div id="layoutAuthentication_footer">
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Rapigen </div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="js/scripts.js"></script>
+<script type="text/javascript" th:src="@{/js/logOut.js}"></script>
+<script type="text/javascript" th:src="@{/js/clock.js}"></script>
+
+</body>
+</html>

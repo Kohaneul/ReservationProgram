@@ -1,0 +1,273 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/Error.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
+<title>석식 등록 Form</title>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Register - SB Admin</title>
+
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+
+    <style>
+        input{
+            text-align:center;
+        }
+        label{
+            margin-left:1%;
+            margin-top:0.5%;
+        }
+
+        #searchBtn{
+            position: absolute;
+            top: 7px;
+            right: 40px;
+        } 
+	.star{
+            color:#c80b0b;
+            font-weight: bold;
+        }	
+    </style>
+
+</head>
+<body class="bg-primary">
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+
+
+    function dataSend(){
+        let loginId = $("#loginId").val();
+
+        let sendDTO = {"loginId":loginId,"phone_number":null,"employee_name":null,"part_name":null};
+
+        $.ajax({
+            url: "/dinner/info/send",
+            data: JSON.stringify(sendDTO),
+            dataType: "json",
+            contentType: "application/json; charset=UTF",
+            type: 'POST',
+            success:function(data){
+                $("#loginId").val(data.loginId);
+                $("#phone_number").val(data.phone_number);
+                $("#employee_name").val(data.employee_name);
+                $("#part_name").val(data.part_name);
+            },
+            error:function(error){
+                alert("찾을 수 없습니다.");
+                $("#loginId").val("");
+                $("#phone_number").val("");
+                $("#employee_name").val("");
+                $("#part_name").val("");
+            }
+
+        });
+    }
+    /*]]>*/
+
+</script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+     window.onload = function(){
+//     loginIdInput();
+     passwordCheckInput();
+         insertQty();
+//     visitDateInput();
+    }
+
+    function insertQty(){
+        document.getElementById('qty').addEventListener('change',function() {
+            let qty = document.getElementById('qty').value;
+            let hiddenQty = document.getElementById('hiddenQty').innerText;
+            if(Number(qty)>Number(hiddenQty)){
+                alert("등록 가능 인원수보다 많을 수는 없습니다.");
+                document.getElementById("qty").value = "";
+            }
+
+        });
+    }
+
+
+/*
+    function loginIdInput(){
+    document.getElementById('loginId').addEventListener('change',function(){
+    let loginId =  document.getElementById('loginId').value;
+    let employee = employees.find(e=>e.loginId.includes(loginId));
+    if(!employee){
+             alert('해당 아이디가 존재하지 않습니다.');
+             document.getElementById('loginId').value = "";}
+    else{
+        document.getElementById('employee_name').value = employee.employee_name;
+        document.getElementById('part_name').value = employee.part_name;
+        document.getElementById('phone_number').value = employee.phone_number;
+    }
+    })};
+*/
+
+    function passwordCheckInput(){
+        document.getElementById('passwordCheck').addEventListener('change',function(){
+            let password1 =  document.getElementById('password').value;
+            let password2 =  document.getElementById('passwordCheck').value;
+            if(password1 !=password2){
+                alert('비밀번호가 일치하지 않습니다. 다시 확인해주세요');
+                document.getElementById('passwordCheck').value = "";
+            }
+        })
+    };
+
+ /*]]>*/
+</script>
+
+
+<div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+        <main>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-7">
+                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+
+                            <div class="card-header"><h3 class="text-center font-weight-light my-4">
+                                <img th:src="@{/images/rapigen_logo.png}" width="180"/>         석식 예약 등록
+                            </h3>
+                            </div>
+                            <div class="card-body" >
+                                <h6 id="clock" style="color:black; margin-top:0.5%;">clock</h6>
+                                <form role="form" th:object="${reservationSave}" method="post" name="sendFrm">
+                                    <div id="errorArea">
+                                        <span th:if="${#fields.hasGlobalErrors()}">
+                                            <p class="field-error" id="globalError" th:text="${errorMsg}"></p>
+                                        </span>
+                                    </div>
+
+                                    <div style="margin-top:1%;">
+                                        <h4><b>석식 등록 정보 입력 </b><img th:src="@{/images/pencil.png}" width="25"/>
+                                        </h4>
+                                        <hr>
+                                        <span>등록 가능 인원수 : <span id="hiddenQty" class="star" th:value = "${hiddenQty}" th:text="${hiddenQty}"></span>명</span>
+                                        <br>
+                                        <div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <div class="form-floating mb-3 mb-md-0" title="그룹웨어 아이디를 입력해주세요">
+                                                <label th:for="loginId" id="loginIdLabel" >아이디<span class="star">*</span></label>
+                                                <input type="text" th:field="*{loginId}" class="form-control"
+                                                       th:class="${#fields.hasErrors('loginId')}? 'form-control fieldError' : 'form-control'">
+                                                <button type="button" class="btn btn-primary btn-block" onclick="dataSend()" id="searchBtn">조회</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating mb-3 mb-md-0">
+                                                <label th:for="employee_name" id="employeeNameLabel">이름<span class="star">*</span></label>
+                                                <input type="text" th:field="*{employee_name}" class="form-control"
+                                                       th:class="${#fields.hasErrors('employee_name')}? 'form-control fieldError' : 'form-control'">
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <label  th:for="part_name" id="partNameLabel">부서명<span class="star">*</span></label>
+                                                    <input type="text" th:field="*{part_name}" class="form-control"
+                                                           th:class="${#fields.hasErrors('part_name')}? 'form-control fieldError' : 'form-control'">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <label th:for="phone_number" id="phoneNumberLabel">휴대폰 번호</label>
+                                                    <input type="text" th:field="*{phone_number}" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <div class="form-floating mb-3 mb-md-0">
+                                                <label  th:for="password" id="passwordLabel">비밀번호<span class="star">*</span></label>
+                                                <input type="password" th:field="*{password}" class="form-control"
+                                                       th:class="${#fields.hasErrors('password')}? 'form-control fieldError' : 'form-control'">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating mb-3 mb-md-0">
+                                                <label th:for="passwordCheck" id="passwordCheckLabel">비밀번호(확인)<span class="star">*</span></label>
+                                                <input type="password" th:field="*{passwordCheck}" class="form-control"
+                                                       th:class="${#fields.hasErrors('passwordCheck')}? 'form-control fieldError' : 'form-control'">
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0" title="원하는 날짜를 입력해주세요">
+                                                    <label th:for="visit_date" id="visitDateLabel" >날짜<span class="star">*</span></label>
+                                                    <input type="date" th:field="*{visit_date}" class="form-control"
+                                                           th:class="${#fields.hasErrors('visit_date')}? 'form-control fieldError' : 'form-control'" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0" title="인원수 입력">
+                                                        <label th:for="qty" id="qtyLabel" > 식사 인원(본인 포함)
+                                                            <span class="star">*</span></label>
+                                                        <input type="text" th:field="*{qty}" class="form-control"
+                                                               th:class="${#fields.hasErrors('qty')}? 'form-control fieldError' : 'form-control'">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <div class="row mb-3">
+                                            <div>
+                                                <div class="form-floating mb-3 mb-md-0" title="내용 입력">
+                                                    <label th:for="contents" id="contents" > 내용<span class="star">*</span></label>
+                                                    <input type="text" th:field="*{contents}" class="form-control"
+                                                           th:class="${#fields.hasErrors('contents')}? 'form-control fieldError' : 'form-control'">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    <div class="mt-4 mb-0">
+                                        <div class="d-grid"><button type="submit" class="btn btn-primary btn-block">submit</button></div>
+                                    </div>
+                                </form>
+                        </div>
+                        </div>
+                            <div class="card-footer text-center py-3">
+                                <div class="small"><a th:href="@{/dinner/info/dateOfQty}">HOME</a>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+        </main>
+    </div>
+
+    <div id="layoutAuthentication_footer">
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="js/scripts.js"></script>
+<script type="text/javascript" th:src="@{/js/clock.js}"></script>
+
+</body>
+</html>

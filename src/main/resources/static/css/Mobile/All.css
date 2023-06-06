@@ -1,0 +1,67 @@
+#datatablesSimple{
+    border-top: 2px solid #dddddd;
+    border-bottom:2px solid #dddddd;
+  font-size:50%;
+  text-align:center;
+}
+#date1,#date2{
+  font-size:50%;
+  text-align:center;
+}
+input#name{
+    width:30%;
+  height:20px;
+  text-align:center;
+
+}
+
+#DTO2Text{
+  font-size:80%;
+}
+#sortTab{
+  margin-left:3%;
+  padding-top:2%;
+  padding-bottom:2%;;
+}
+
+#AllContents{
+  margin-top:2%;
+}
+td{
+  width:16%;
+}
+.employee_name{
+  width:11%;
+}
+
+thead, tbody{
+  width:fit-content;
+}
+
+
+
+.mb-2 #date1,.mb-2 #date2{
+  width:25%;
+}
+form.form-inline{
+  margin-left:3%;
+  margin-top:5%;
+}
+#date1,#date2{
+    text-align:center;
+}
+button.btn.btn-primary.mb-2{
+    font-size:70%;
+}
+
+
+button#visitO.btn.btn-primary,button#visitX.btn.btn-primary{
+  padding-top:2%;
+  padding-left:3%;
+  padding-right:3%;
+  padding-bottom:2%;
+
+}
+button.btn.btn-primary.btn-block{
+        font-size:70%;
+}

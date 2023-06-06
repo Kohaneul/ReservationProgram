@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.visit.program.ReservationProgram.domain.repository.EmployeeRepository">
+
+    <select id = "findAll" resultType="com.visit.program.ReservationProgram.domain.dao.Employee">
+        select * from employee
+    </select>
+
+    <select id = "loginMember" resultType="java.lang.Long">
+        select id from employee where loginId = #{loginId} and password  = #{password}
+    </select>
+
+    <select id = "findById" resultType="com.visit.program.ReservationProgram.domain.dao.Employee">
+        select * from employee where id = #{id}
+    </select>
+
+    <select id = "findByName" resultType="java.lang.String">
+        select employee_name from employee where id = #{id}
+    </select>
+
+
+    <select id="updatePassword">
+        update employee set password=#{password} where id = #{id}
+    </select>
+
+    <select id="findByLoginId" resultType="com.visit.program.ReservationProgram.domain.dao.Employee">
+        select id, employee_name, loginId, phone_number,part_name from employee where loginId = #{loginId}
+    </select>
+
+</mapper>

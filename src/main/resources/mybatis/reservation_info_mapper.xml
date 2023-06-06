@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.visit.program.ReservationProgram.domain.repository.ReservationRepository">
+
+    <select id = "findAll" resultType="com.visit.program.ReservationProgram.domain.dao.Reservation">
+        select r.id,r.employee_id, v.name,v.employee_name ,v.visit_date1,v.visit_date2,v.phone_number, v. ,v.company,v.is_checked
+        from Reservation_info r,visitor v,employee e where r.visitor_id = v.id and e.id = r.employee_id order by r.id desc
+    </select>
+
+
+    <select id="saveInfo">
+        insert into Reservation_info(visitor_id,employee_id, is_checked)
+        values(#{visitor_id},#{employee_id},#{is_checked});
+    </select>
+
+
+
+    <select id = "findMyVisitors" resultType="com.visit.program.ReservationProgram.domain.dao.Reservation">
+        select r.id,if(CHAR_LENGTH(v.purpose) <![CDATA[ <= ]]>8,v.purpose,concat(left(v.purpose,5),'..')) as purpose, v.name,v.employee_name,v.visit_date1,v.visit_date2,v.phone_number,v.withPerson,
+        if(CHAR_LENGTH(v.company) <![CDATA[ <= ]]>8,v.company,concat(left(v.company,5),'..')) as company,v.is_checked from Reservation_info r inner join visitor v on r.visitor_id = v.id
+
+        <where>
+            <if test="employee_id!=null and employee_id!=''">
+                and r.employee_id = #{employee_id}
+            </if>
+            <if test="name!=null and name!=''">
+                and v.name like concat('%',#{name},'%')
+            </if>
+            <if test="date1!=null and date1!='' and date2!=null and date2!=''">
+                and date(v.visit_date1) between #{date1} and #{date2}
+            </if>
+            <if test="date1!=null and date1!=''">
+                and date(v.visit_date1) >= #{date1}
+            </if>
+
+            <if test="date2!=null and date2!=''">
+                and date(v.visit_date2) <![CDATA[ <= ]]> #{date2}
+            </if>
+            <if test="is_checked!=null and is_checked!=''">
+                and v.is_checked like #{is_checked}
+            </if>
+
+        </where>
+        order by v.visit_date1 asc ,r.id asc
+    </select>
+
+
+
+    <select id="findOne" resultType="com.visit.program.ReservationProgram.domain.dao.Reservation">
+        select r.id,r.visitor_id, v.checked_date,v.name,v.employee_name,v.visit_date1,v.visit_date2,v.phone_number,v.withPerson,v.company,v.is_checked from Reservation_info r inner join visitor v on r.visitor_id = v.id
+        where r.id = #{id}
+    </select>
+
+
+    <select id="findInfoOne" resultType="com.visit.program.ReservationProgram.domain.dao.ReservationInfo">
+        select * from Reservation_info where id =#{id};
+    </select>
+
+    <select id="deleteInfo">
+        delete from Reservation_info where id = #{id};
+    </select>
+
+<!--    <select id = "findAllDTO" resultType="com.visit.program.ReservationProgram.domain.dao.Reservation">-->
+<!--        select r.id, v.name,v.employee_name,v.visit_date1,v.visit_date2,v.phone_number,v.withPerson,v.company,v.is_checked from Reservation_info r inner join visitor v on r.visitor_id = v.id-->
+<!--        <where>-->
+<!--            <if test="employee_name!=null and employee_name!=''">-->
+<!--                and v.employee_name like concat('%',#{employee_name},'%')-->
+<!--            </if>-->
+<!--            <if test="is_checked!=null and is_checked!=''">-->
+<!--                and r.is_checked like #{is_checked}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--        order by r.id desc-->
+<!--    </select>-->
+
+    <select id = "findAllDTO" resultType="com.visit.program.ReservationProgram.domain.dao.Reservation">
+        select r.id,if(CHAR_LENGTH(v.purpose) <![CDATA[ <= ]]>8,v.purpose,concat(left(v.purpose,5),'..')) as purpose, v.name,v.employee_name,v.visit_date1,v.visit_date2,v.phone_number,v.withPerson,
+        if(CHAR_LENGTH(v.company) <![CDATA[ <= ]]>5,v.company,concat(left(v.company,3),'..')) as company,v.is_checked from Reservation_info r inner join visitor v on r.visitor_id = v.id
+        <where>
+            <if test="name!=null and name!=''">
+                and v.name like concat('%',#{name},'%')
+            </if>
+            <if test="date1!=null and date1!='' and date2!=null and date2!=''">
+                and date(v.visit_date1) between #{date1} and #{date2}
+            </if>
+            <if test="date1!=null and date1!=''">
+                and date(v.visit_date1) >= #{date1}
+            </if>
+
+            <if test="date2!=null and date2!=''">
+                and date(v.visit_date2) <![CDATA[ <= ]]> #{date2}
+            </if>
+            <if test="is_checked!=null and is_checked!=''">
+                and v.is_checked like #{is_checked}
+            </if>
+        </where>
+        order by v.visit_date1 asc, r.id asc
+    </select>
+
+
+    <select id = "findAllDTO2" resultType="com.visit.program.ReservationProgram.domain.dao.Reservation">
+        select r.id,if(CHAR_LENGTH(v.purpose) <![CDATA[ <= ]]>8,v.purpose,concat(left(v.purpose,5),'..')) as purpose, v.name,v.employee_name,v.visit_date1,v.visit_date2,v.phone_number,v.withPerson,
+        if(CHAR_LENGTH(v.company) <![CDATA[ <= ]]>5,v.company,concat(left(v.company,3),'..')) as company,v.is_checked from Reservation_info r inner join visitor v on r.visitor_id = v.id
+        <where>
+            <if test="name!=null and name!=''">
+                and v.name like concat('%',#{name},'%')
+            </if>
+
+            <if test="date1!=null and date1!=''">
+                and date(v.visit_date1) like #{date1} or #{date1} between v.visit_date1 and v.visit_date2
+            </if>
+            <if test="is_checked!=null and is_checked!=''">
+                and v.is_checked like #{is_checked}
+            </if>
+        </where>
+        order by v.visit_date1 asc
+    </select>
+
+
+    <select id="findAllFromTodayTo7Days"  resultType="com.visit.program.ReservationProgram.domain.dao.Reservation">
+        select r.id,v.purpose, v.name,v.employee_name,v.visit_date1,v.visit_date2,v.phone_number,v.withPerson,v.company,v.is_checked from Reservation_info r inner join visitor v on r.visitor_id = v.id
+        <where>
+            v.visit_date1 between #{date1} AND #{date2}
+            <if test="is_checked!=null and is_checked!=''">
+                and v.is_checked like #{is_checked}
+            </if>
+        </where>
+        order by r.id desc
+    </select>
+
+
+
+
+    <select id="updateCheckedInfo">
+        update Reservation_info set is_checked=#{is_checked} where id = #{id};
+    </select>
+
+
+
+</mapper>

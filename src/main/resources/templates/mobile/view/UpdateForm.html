@@ -1,0 +1,305 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/Mobile/Error.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/Mobile/UpdateForm2.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/Mobile/styles.css}"/>
+<title>방문자 등록 Form</title>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Register - SB Admin</title>
+
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-primary">
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+     let reservationId = [[${reservationId}]]
+
+     window.onload = function(){
+        visit1DateInput();
+        visit2DateInput();
+    };
+   let today = new Date();
+    let year = today.getFullYear();
+    let month = today.getMonth()+1;
+    let day = today.getDate();
+    let date = '['+today.getFullYear()+'년'+month+'월'+day+'일]';
+
+    function setCheck(){
+        if(confirm("예약내역을 수정 하시겠습니까?")){
+           let form = document.createElement('form');
+           form.setAttribute('method','post');
+           form.setAttribute('action','/m/reservation/info/update'+reservationId);
+           document.body.append(form);
+           form.submit();
+         }
+            else{
+                window.location.href = '/m/reservation/info/update/'+reservationId;
+
+        }
+
+    }
+
+
+    function visit1DateInput(){
+    document.getElementById('visit_date1').addEventListener('change',function(){
+    let visit_date1 = document.getElementById('visit_date1').value;
+    let inputYear = Number(visit_date1.substr(0,visit_date1.indexOf('-')));
+    let inputMonth = Number(visit_date1.split('-')[1]);
+    let inputDay = Number(visit_date1.split('-')[2]);
+
+    if(inputYear<=year){
+        if(inputYear<year){
+           alert('방문일정이 현재 날짜 '+date+' 보다 전일 수는 없습니다.');
+           document.getElementById('visit_date1').value = "";
+        }
+        else{
+          if(inputMonth<month){
+            alert('방문일정이 현재 날짜 '+date+' 보다 전일 수는 없습니다.');
+            document.getElementById('visit_date1').value = "";
+            }
+            if(inputMonth==month){
+                if(inputDay<day){
+              alert('방문일정이 현재 일자 '+date+' 보다 전일 수는 없습니다.');
+              document.getElementById('visit_date1').value = "";
+                }
+            }
+        }
+    }
+                 document.getElementById('visit_date2').value = document.getElementById('visit_date1').value;
+
+
+        })};
+
+    function visit2DateInput(){
+
+      document.getElementById('visit_date2').addEventListener('change',function(){
+
+        let visit_date2 =  document.getElementById('visit_date2').value;
+        let inputMonth2 = Number(visit_date2.split('-')[1]);
+        let inputDay2 = Number(visit_date2.split('-')[2]);
+        let inputYear2 = Number(visit_date2.substr(0,visit_date2.indexOf('-')));
+        let visit_date1 =  document.getElementById('visit_date1').value;
+
+        let inputYear1 = Number(visit_date1.substr(0,visit_date1.indexOf('-')));
+        let inputMonth1 = Number(visit_date1.split('-')[1]);
+        let inputDay1 = Number(visit_date1.split('-')[2]);
+
+        if(inputYear2<inputYear1){
+              alert('방문일정 종료일이 현재 방문일정 시작일 보다 전일 수는 없습니다.');
+               document.getElementById('visit_date2').value = "";
+        if(inputMonth2<month){
+            alert('방문일정이 현재 날짜 '+date+' 보다 전일 수는 없습니다.');
+            document.getElementById('visit_date2').value = "";
+        }
+        if(inputMonth2==month){
+           if(inputDay2<day){
+              alert('방문일정이 현재 일자 '+date+' 보다 전일 수는 없습니다.');
+              document.getElementById('visit_date2').value = "";
+              }
+         }
+         }
+         else{
+        console.log(inputMonth1);
+           if(inputMonth2<inputMonth1){
+              alert('방문일정 종료일이 현재 방문일정 시작일 보다 전일 수는 없습니다.');
+            document.getElementById('visit_date2').value = "";
+        }
+        if(inputMonth2==inputMonth1){
+           if(inputDay2<inputDay1){
+              alert('방문일정 종료일이 현재 방문일정 시작일 보다 전일 수는 없습니다.');
+              document.getElementById('visit_date2').value = "";
+              }
+         }
+         }
+
+
+        })};
+
+
+
+
+   function sendDeleteFrm(){
+        if(confirm("삭제 하시겠습니까?")){
+        window.location.href = '/reservation/info/delete/'+reservationId;
+        }
+        else{
+                window.location.href = '/reservation/info/update/'+reservationId;
+
+        }
+
+
+    }
+
+
+
+
+    /*]]>*/
+</script>
+
+<div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+        <main>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-7">
+                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <div class="card-header">
+                                <h8 class="text-center font-weight-light my-4">
+                                    <img th:src="@{/images/rapigen_logo.png}" id="logo" width="30%"/>          내역 수정(모바일)
+                                </h8>
+                            </div>
+                            <div class="card-body">
+                                <form role="form" th:object="${visitor}" method="post" name="sendFrm">
+                                    <div class="col-md-6">
+                                        <div th:if="${#fields.hasGlobalErrors()}">
+                                            <p class="field-error"  id="globalError" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" th:field="*{id}">
+                                    <input type="hidden" th:field="*{checked_date}">
+                                    <input type="hidden" th:field="*{write_date}">
+                                    <input type="hidden" th:field="*{revised_write_date}">
+                                    <input type="hidden" th:field="*{count}">
+                                    <input type="hidden" th:field="*{password}">
+                                    <input type="hidden" th:field="*{is_checked}">
+
+                                    <div id="area1">
+                                        <h4><b>접견자 정보  </b><img th:src="@{/images/pencil.png}" class="pencil" width="25"/></h4>
+                                        <hr>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <label th:for="loginId" id="loginIdLabel">아이디</label>
+                                                    <input type="text" th:field="*{loginId}" class="form-control" style="color:#858585;" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <label th:for="employee_name" id="employeeNameLabel">이름</label>
+                                                    <input type="text" th:field="*{employee_name}" class="form-control" style="color:#858585;" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div id="area2">
+                                        <h4><b>방문자 정보  </b><img th:src="@{/images/pencil.png}"  class="pencil" width="25"/></h4>
+                                        <hr>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0" title="방문자 이름을 입력해주세요">
+                                                    <label  th:for="name" id="nameLabel">방문자</label>
+                                                    <input type="text" th:field="*{name}" class="form-control"
+                                                           th:class="${#fields.hasErrors('name')}? 'form-control fieldError' : 'form-control'">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <label th:for="phone_number" id="phoneNumberLabel">연락처</label>
+                                                    <input type="text" th:field="*{phone_number}" class="form-control"
+                                                           th:class="${#fields.hasErrors('phone_number')}? 'form-control fieldError' : 'form-control'">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <label th:for="withPerson" id="withPersonLabel">동행자</label>
+                                                    <input type="text" th:field="*{withPerson}" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <label th:for="company" id="companyLabel">회사</label>
+                                                    <input type="text" th:field="*{company}" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <div class="form-floating">
+                                                        <label th:for="purpose" id="purposeLabel">방문 목적</label>
+                                                        <input type="text" th:field="*{purpose}" class="form-control"
+                                                               th:class="${#fields.hasErrors('purpose')}? 'form-control fieldError' : 'form-control'">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <label th:for="loginId" id="visitDateLabel" >방문일(From)</label>
+                                                    <input type="date" th:field="*{visit_date1}" class="form-control"
+                                                           th:class="${#fields.hasErrors('visit_date1')}? 'form-control fieldError' : 'form-control'">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <label th:for="visit_date2">방문일(To)</label>
+                                                    <input type="date" th:field="*{visit_date2}" class="form-control"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <span id="reviseTxt">
+                                    수정 횟수 : <span id = "cnt" th:text="${visitor.count}>=5? '5번 초과로 수정 불가능' : '총 5번 中 '+${visitor.count} + '번 수정'"> </span>
+                                    </span>
+                                    <div id="btnArea">
+                                        <button class="btn btn-primary btn-block" id="submitBtn" th:onclick="setCheck();">수정</button>
+                                        <span>
+                                        <span class="btn btn-primary btn-block" id="deleteBtn" th:onclick="sendDeleteFrm();"> 삭제</span>
+                                            <!--                                        <a th:href="@{/reservation/info/all}"><button class="btn btn-primary btn-block">목록</button></a>-->
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer text-center py-3">
+                                <div class="small"><a th:href="@{/m/reservation/info/all}">HOME</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </main>
+        <!--    </div>-->
+    </div>
+
+    <div id="layoutAuthentication_footer">
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="js/scripts.js"></script>
+<script type="text/javascript" th:src="@{/js/clock.js}"></script>
+
+
+</body>
+</html>

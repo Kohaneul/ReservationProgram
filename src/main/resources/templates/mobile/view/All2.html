@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" th:href="@{/css/Mobile/Error.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/Mobile/All.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/Mobile/styles.css}"/>
+<title>방문자 전체 조회(모바일)</title>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Register - SB Admin</title>
+
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+
+</head>
+<body class="bg-primary">
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+
+    function setCheck(id){
+        if(confirm("한번 선택하면 수정이 불가능합니다. 그래도 하시겠습니까?")){
+          console.log(id);
+           document.getElementById(id).readOnly='true';
+            window.location.href = '/reservation/info/click/'+id;
+        }
+        else{
+              window.location.href = '/reservation/info/all';
+        }
+    }
+
+    /*]]>*/
+</script>
+
+
+<div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+        <main>
+            <div id="layoutSidenav_content">
+
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-7">
+                            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                <div class="card-header">
+                                    <h8 class="text-center font-weight-light my-4">
+                                        <img th:src="@{/images/rapigen_logo.png}" id="logo" width="30%"/>          방문 내역(경비실)
+                                    </h8>
+                                </div>
+                                <div id="AllContents">
+                                    <h6 id="clock" style="color:black;">clock</h6>
+
+
+                                    <div id="sortTab">
+                                    <div>
+                                             <form th:object="${reservationDTO}" class="form-inline" name="sendfrm">
+                                                 <span class="form-group mb-2" id="sortId">
+                                                <span id = "DTO">
+                                                    <input type="text" id="name" th:field="*{name}" placeholder="방문자 이름"/>
+                                                    <input type="date" id="date1" th:field="*{date1}"/>
+                                                     <span id = "DTO2Text" th:text = "방문완료"></span>
+                                                     <span class="form-group mx-sm-1 mb-2" id="sortGrade">
+                                                       <input type="checkbox" id = "is_checked" th:field="*{is_checked}"/>
+                                                     </span>
+                                                </span>
+                                              </span>
+                                                 </span>
+                                                 <button type="submit" class="btn btn-primary mb-2">검색</button>
+                                             </form>
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="card-body">
+                                        <div class="card mb-4">
+                                            <div class="card-header">
+                                                <span>
+                                                <i class="fas fa-table me-1"> </i>
+                                                방문객List
+                                                </span>
+                                            </div>
+
+                                            <table id="datatablesSimple">
+                                                <thead>
+                                                <tr>
+                                                    <th class = "name">방문자</th>
+                                                    <th class = "employee_name">접견자</th>
+                                                    <th class = "purpose">목적</th>
+                                                    <th class = "visit_Date1">일자</th>
+                                                    <th class="phone_number">연락처</th>
+                                                    <th class = "is_checked">방문여부</th>
+                                                    <th class = "detailView">　　</th>
+                                                </tr>
+                                                </thead>
+                                                <div th:if="${reservations.size()>0}">
+                                                    <tbody>
+                                                    <tr th:each="reservation,i : ${reservations}">
+                                                        <td class = "reservation_id" th:value="${reservation.id}" th:text="${i.count}"></td>
+                                                        <td class = "name" th:text="${reservation.name}"></td>
+                                                        <td class = "employee_name" th:text="${reservation.employee_name}"></td>
+                                                        <td class = "company" th:text="${reservation.company}"></td>
+                                                        <td class = "purpose" th:text="${reservation.purpose}"></td>
+                                                        <td class = "visit_Date1" th:text="${reservation.visit_Date1}"></td>
+                                                        <td class = "visit_Date2" th:text="${reservation.visit_Date2}"></td>
+                                                        <td class = "phone_number" th:text="${reservation.phone_number}"></td>
+                                                        <td><input type="checkbox" name = "ckval" th:checked = "${reservation.is_checked}" th:id ="${reservation.id}"
+                                                                   th:ckval="${reservation.id}"  th:onclick="setCheck(this.getAttribute('ckval'));" ></td>
+                                                        <td><a th:href="@{/reservation/info/{id} (id=${reservation.id})}" role="button" class = "detailView">상세보기</a></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </div>
+                                            </table>
+                                            <span id = "dataIsNull" th:if="${reservations.size()<1}">
+                                            <h2>방문자 데이터가 존재하지 않습니다.</h2>
+                                            </span>
+                                             </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="card-footer text-center py-3">
+                                    <span class="small"><a th:href="@{/m/reservation/info/all/rapigen_security}">HOME</a></span>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <div id="layoutAuthentication_footer">
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Rapigen </div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="js/scripts.js"></script>
+<script type="text/javascript" th:src="@{/js/clock.js}"></script>
+
+</body>
+</html>

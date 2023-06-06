@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
+<title>인원 수정</title>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Register - SB Admin</title>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        function dataSend(){
+            let qty = $("#qty").val();
+            let id = $("#id").val();
+            let childDTO = {"qty":qty,"id":id};
+
+            $.ajax({
+                url: "/dinner/info/childSend",
+                data: JSON.stringify(childDTO),
+                dataType: "json",
+                contentType: "application/json; charset=UTF",
+                type: 'POST',
+                success:function(data){
+                    $("#id").val(data.id);
+                    $("#qty").val(data.qty);
+                    alert("변경 완료")
+                    opener.parent.location='/dinner/info/dateOfQty';
+                    window.close();
+                },
+                error:function(error){
+                    alert("등록 실패");
+                }
+
+            });
+        }
+        /*]]>*/
+
+    </script>
+</head>
+<body>
+<main>
+
+    <div class="container">
+
+        <br>
+        <br>
+        <form type="post" name="childForm">
+        <input type="hidden" th:id = "id" th:value="${updateQty.id}">
+        <span>수량 :  <input type="text" id = "qty" th:value="${updateQty.qty}" class="form-control" style="width:100px;" th:class="form-control"></span>
+            <button type="button" class="btn btn-primary btn-block" onclick="dataSend()" id="searchBtn">변경</button>
+            <button type="button" class="btn btn-primary btn-block" onclick="window.close();" >닫기</button>
+      </form>
+    </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="js/scripts.js"></script>
+<script type="text/javascript" th:src="@{/js/clock.js}"></script>
+
+</body>
+</html>

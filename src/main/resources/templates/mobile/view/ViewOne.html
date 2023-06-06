@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" th:href="@{/css/Mobile/Error.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/Mobile/ViewOne.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/Mobile/styles.css}"/>
+<title>방문자 조회</title>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Register - SB Admin</title>
+
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+
+
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+
+    let reservationId = [[${reservation.id}]]
+
+    function sendUpdateFrm(){
+           alert("글작성시 등록했던 아이디와 비밀번호를 입력해주세요.");
+        window.location.href = '/m/reservation/info/update/'+reservationId;
+    }
+
+    function sendDeleteFrm(){
+        if(confirm("삭제 하시겠습니까?")){
+        window.location.href = '/m/reservation/info/delete/'+reservationId;
+        }
+        else{
+        window.location.href = '/m/reservation/info/'+reservationId;
+        }
+
+    }
+
+
+    /*]]>*/
+</script>
+
+
+</head>
+<body class="bg-primary">
+<div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+        <main>
+            <div id="layoutSidenav_content">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-7">
+                            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                <div class="card-header">
+                                    <h8 class="text-center font-weight-light my-4">
+                                        <img th:src="@{/images/rapigen_logo.png}" id="logo" width="30%"/>          상세 화면(모바일)
+                                    </h8>
+                                </div>
+                                <div class="card-body" id="Cbody">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <i class="fas fa-table me-1"></i>
+                                            방문자 상세 내용
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="contents" th:object="${visitor}">
+                                                <ol> 방문자 :  <span th:text="${visitor.name}"></span></ol>
+                                                <ol> 접견자 :  <span th:text="${visitor.employee_name}"></span></ol>
+                                                <ol> 회사 :  <span th:text="${visitor.company==null || visitor.company=='' }? '없음' : ${visitor.company}"></span></ol>
+                                                <ol> 목적 :  <span th:text="${visitor.purpose}"></span></ol>
+                                                <ol> 방문일자 :  <span th:text="${visitor.visit_date1}"></span>~<span th:text="${visitor.visit_date2}"></span></ol>
+                                                <ol> 동행자 :  <span th:text="${visitor.withPerson==null || visitor.withPerson=='' }? '없음' : ${visitor.withPerson}"></span></ol>
+                                                <ol> 연락처 :  <span th:text="${visitor.phone_number}"></span></ol>
+                                                <ol> 방문여부 :
+                                                    <span th:if="${visitor.is_checked==true}">
+                                                        <span th:text="'방문 O ( 방문시각 : '+${visitor.checked_date.toString()} + ')'"></span>
+                                                        <ol id = "stickerO">방문스티커 부착 : <input type="checkbox" id="checkVal" th:checked = "true" disabled/></ol>
+                                                    </span>
+                                                    <span th:if="${visitor.is_checked==false}">
+                                                           <span>방문 X</span>
+                                                     </span>
+                                                </ol>
+                                                <!--
+                                                                                      <span id="reservationId" th:value="${reservationId}"></span>-->
+                                                <span th:if="${session.ACCESS_ID!=null}">
+                                                    <div th:if="${!session.ACCESS_ID.toString().contains('security')}" id="employeeArea">
+                                                        <div id="listsView">
+
+                                                            <a th:href="@{/m/reservation/info/all}"> <button class="btn btn-primary btn-block"> 목록보기</button></a>
+                                                             <button class="btn btn-primary btn-block" th:onclick="sendUpdateFrm();"> 수정하기</button>
+                                                        </div>
+                                                    </div>
+                                               </span>
+
+                                                    <div>
+                                                    <span th:if="${session.ACCESS_ID.toString().contains('security')}">
+                                                        <span id="listView">
+                                                        <a th:href="@{/m/reservation/info/all}"> <button class="btn btn-primary btn-block"> 목록보기</button></a>
+                                                        </span>
+                                                    </span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        </div>
+                                    </div>
+
+                                <span th:if="${session.EMPLOYEE_ID!=null}">
+                                    <div class="card-footer text-center py-3">
+                                        <div class="small"><a th:href="@{/m/reservation/info/all}">HOME</a></div>
+                                    </div>
+                                </span>
+
+                                <span th:if="${session.SECURITY!=null}">
+                                    <div class="card-footer text-center py-3">
+                                        <div class="small"><a th:href="@{/m/reservation/info/all}">HOME</a></div>
+                                    </div>
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+        </main>
+    </div>
+
+    <div id="layoutAuthentication_footer">
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Rapigen </div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="js/scripts.js"></script>
+<script type="text/javascript" th:src="@{/js/logOut.js}"></script>
+<script type="text/javascript" th:src="@{/js/clock.js}"></script>
+
+</body>
+</html>

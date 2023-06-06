@@ -1,0 +1,32 @@
+label{
+    float: left;
+  position:absolute;
+    color:#040404;
+}
+h4{
+  margin-left:2%;
+}
+
+
+h8.text-center.font-weight-light.my-4{
+    margin-left:20%;
+}
+#globalError{
+    margin-left:4%;
+}
+
+#area1,#area2{
+    margin-top:2%;
+}
+
+input[type=date]{
+  float: right;
+  width:60%;
+}
+#visitDateLabel1{
+  margin-left:3%;
+}
+#visitDateLabel2{
+  margin-left:8.5%;
+}
+

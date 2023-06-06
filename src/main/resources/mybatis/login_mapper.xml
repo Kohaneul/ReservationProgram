@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.visit.program.ReservationProgram.domain.repository.LoginRepository">
+
+    <select id = "loginMember" resultType="java.lang.Long">
+        select id from visitor where loginId = #{loginId} and password  = #{password} and id = #{id}
+    </select>
+
+    <select id = "loginEmp" resultType="java.lang.Long">
+        select id from dinner_reservation where loginId = #{loginId} and password  = #{password} and id = #{id}
+    </select>
+
+    <select id = "loginAdmin" resultType = "java.lang.Boolean">
+        select is_admin from employee where loginId = #{loginId} and password=#{password} and id = #{id};
+    </select>
+
+
+</mapper>

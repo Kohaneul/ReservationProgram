@@ -1,0 +1,166 @@
+#welcomeMsg{
+    position: absolute;
+    margin-left:1%;
+    margin-top:-2%;
+}
+
+
+#viewPage{
+    margin-left:30%;
+    margin-top:10%;}
+
+.card-body th,td{
+    font-size:18px;
+}
+
+.card-body{
+    margin-top:-3px;
+}
+th.visit_Date1, th.visit_Date2{
+    font-size:16px;
+}
+.reservation_id{
+    width:45px;
+}
+
+#detailView{
+    font-size:15px;
+}
+.company_person,.name {
+    width:140px;
+    font-size:18px;
+}
+
+thead tr{
+    border-bottom:1px solid #9d9d9d;
+
+}
+.company,.purpose{
+    width:200px;
+}
+.visit_Date1,.visit_Date2,.phone_number{
+    width:140px;
+    font-size:16px;
+}
+
+#listBtn{
+    margin-left:5%;
+}
+
+
+td{
+    font-size:22px;
+}
+
+#renewDateArea{
+    margin-top:2%;
+    margin-left:58%;
+}
+
+#AllContents{
+    margin-top: 1.5%;
+}
+
+#loginBtn{
+    margin-left:2.5%;
+}
+
+.company{
+    font-size:18px;
+}
+
+.withPerson{
+    font-size:18px;
+    width:150px;
+}
+#sortTab{
+    margin-left:20%;
+    font-size:20px;
+}
+#sortTab2{
+    margin-left:33%;
+    font-size:20px;
+
+}
+
+#DTO1 input{
+    width:190px;
+    text-align:center;
+}
+
+#DTO1 input#date1,#date2{
+    letter-spacing:3px;
+}
+
+
+
+#sortTab button{
+    margin-left:10px;
+}
+
+#DTO2 {
+    margin-left:2%;
+}
+
+#DTO2 input{
+    margin-left:5px;
+}
+
+input[type=checkbox] {
+    zoom: 1.5;
+}
+
+img{
+    margin-top:-10px;
+    margin-left:24px;
+}
+
+.card .mb-4{
+    margin-left:1.3%;
+}
+
+.is_checked{
+    width:96px;
+}
+
+.is_checked tr{
+    font-size:15px;
+}
+.detailView{
+    font-size:18px;
+}
+
+
+#dataIsNull{
+    font-size:14px;
+    text-align:center;
+    margin-top:1%;
+    margin-bottom:1%;
+    color:#868686;
+}
+
+#btnArea{
+    margin-top:-2%;
+    margin-bottom:-0.5%;
+    margin-left:2%;
+}
+#loginArea{
+    margin-left:2%;
+}
+.card.mb-4 table{
+    font-size:14px;
+    width: 100%;
+    border-collapse: collapse;
+    text-align:center;
+    border-top: 3px solid #dddddd;
+    border-bottom:3px solid #dddddd;
+}
+th, td {
+    padding: 8px;
+}
+
+
+#btnArea2{
+    margin-left:3%;
+    padding-bottom:2%;
+}

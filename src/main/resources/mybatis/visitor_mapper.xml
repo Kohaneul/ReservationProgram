@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.visit.program.ReservationProgram.domain.repository.VisitorRepository">
+
+    <select id = "findAll" resultType="com.visit.program.ReservationProgram.domain.dao.Visitor">
+        SELECT * FROM visitor
+    </select>
+
+
+    <select id="findAllDTO" resultType="com.visit.program.ReservationProgram.domain.dao.Visitor">
+        SELECT * FROM visitor
+        <where>
+            <if test="employee_id!=null and employee_id!=''">
+                and employee_id  = #{employee_id}
+            </if>
+            <if test="name!=null and name!=''">
+                and name like concat('%',#{name},'%')
+            </if>
+        </where>
+    </select>
+
+
+    <select id="findOne" resultType="com.visit.program.ReservationProgram.domain.dao.Visitor">
+        SELECT * FROM visitor where id = #{id};
+    </select>
+
+
+    <insert id="saveInfo" parameterType="com.visit.program.ReservationProgram.domain.dao.Visitor" useGeneratedKeys="true" keyProperty="id">
+        insert into visitor(loginId, password, employee_name, name, phone_number, company,visit_date1,visit_date2,withPerson,purpose,write_date,revised_write_date,count)
+        values (#{loginId}, #{password},#{employee_name},#{name},#{phone_number},#{company},#{visit_date1},#{visit_date2},#{withPerson},#{purpose},#{write_date},#{revised_write_date},#{count});
+    </insert>
+
+
+
+    <select id="deleteInfo">
+        delete from visitor where id = #{id};
+    </select>
+
+
+    <select id="updateInfo">
+        update visitor set loginId=#{loginId}, password=#{password}, employee_name=#{employee_name}, name=#{name}, phone_number=#{phone_number},
+        company=#{company}, visit_date1=#{visit_date1}, visit_date2=#{visit_date2}, withPerson=#{withPerson}, id=#{id},
+        purpose=#{purpose}, write_date=#{write_date}, revised_write_date=#{revised_write_date}, count=#{count}+1, is_checked=#{is_checked} where id = #{id};
+    </select>
+
+    <select id="updateCheckedInfo">
+        update visitor set is_checked=#{is_checked},checked_date=#{checked_date} where id = #{id};
+    </select>
+
+
+</mapper>

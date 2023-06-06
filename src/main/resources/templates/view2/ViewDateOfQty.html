@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" th:href="@{/css/DateOfQty.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
+<title>석식 인원 조회(관리자 페이지)</title>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Register - SB Admin</title>
+
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+
+</head>
+<body class="bg-primary">
+
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    let openWin;
+    function openChild(id){
+        window.name="parentForm";
+        let width = 400;
+        let height = 300;
+        let popupX = (window.screen.width / 2) - (width / 2);
+        let popupY= (window.screen.height / 2) - (height / 2);
+
+        let url ="/dinner/info/dateOfQty/"+id;
+         openWin = window.open(url, "childForm", "width=570, height=350, resizable = no, scrollbars = no, left="+popupX+',top='+popupY);
+    }
+
+
+     function end(id){
+        if(confirm("선택한 날짜의 마감 처리를 하시겠습니까?")){
+            window.location.href = "/dinner/info/dateOfQty/"+id+"/end";
+        }
+        else{
+            window.location.href = '/dinner/info/dateOfQty';
+        }
+    }
+
+    /*]]>*/
+</script>
+
+
+
+<div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+        <main>
+            <div id="layoutSidenav_content">
+
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-7">
+                            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                <div class="card-header">
+                                    <h3 class="text-center font-weight-light my-4">
+                                    <img th:src="@{/images/rapigen_logo.png}" width="200"/>
+                                    <span th:if="${session.ADMIN_ID!=null}">석식 조회 페이지(관리자)</span>
+                                    <span th:if="${session.ADMIN_ID==null}">석식 조회 페이지</span>
+                                </h3>
+                                </div>
+
+                                <span id="AllContents">
+                                    <span id="btn">
+                                    <a th:href="@{/dinner/info/all}"> <button class="btn btn-primary btn-block" id = "listBtn" style="background-color: black; border:none;">예약 리스트</button></a>
+                                    <span th:if="${session.ADMIN_ID==null}"> <a th:href="@{/dinner/info/admin}"> <button class="btn btn-primary btn-block"> 관리자페이지</button></a></span>
+                                    <span th:if="${session.ADMIN_ID!=null}"> <a th:href="@{/dinner/info/admin/logOut}"> <button class="btn btn-primary btn-block"> 관리자계정(로그아웃) </button></a></span>
+                                      </span>
+                                        <h6 id="clock" style="color:black;">clock</h6>
+                                <div id="sortTab2">
+                                        <form th:object="${dateDTO}" class="form-inline" name="sendfrm" >
+                                            <span class="form-group mb-2" id="sortId">
+                                                <span id = "DTO1">
+                                                    <input type="date" id="date1" th:field="*{visit_date1}"/> ~
+                                                    <input type="date" id="date2" th:field="*{visit_date2}"/>  </span>
+                                                <button type="submit" class="btn btn-primary mb-2">검색</button>
+                                            </span>
+                                         </form>
+                                </div>
+
+
+                                 <div class="card-body">
+                                    <div class="card-body">
+                                        <div class="card mb-4">
+                                            <div class="card-header">
+                                                <span>
+                                                <i class="fas fa-table me-1"> </i>
+                                               일자별 예약 현황
+                                                </span>
+                                            </div>
+                                            <table id="datatablesSimple">
+                                                <thead>
+                                                <tr>
+                                                    <th class="no">no</th>
+                                                    <th class = "now_date">일자</th>
+                                                    <th class = "real_qty">현재 예약 인원</th>
+                                                    <span th:if="${session.ADMIN_ID!=null}">
+                                                    <th class = "qty">수용 가능 인원</th>
+                                                    <th class = "last_qty">예약 가능 인원</th>
+                                                    </span>
+                                                    <th>예약 가능 여부</th>
+                                                </tr>
+                                                </thead>
+                                                    <tbody>
+                                                    <tr th:each="datePerQtyList,i : ${datePerQtyList}">
+                                                        <td class="no" th:text="${i.count}"></td>
+                                                        <td class = "now_date" th:text="|${datePerQtyList.now_date} (${datePerQtyList.dayOfTheWeek})|"></td>
+                                                        <td class = "real_qty" th:text="${datePerQtyList.real_qty}"></td>
+                                                        <span th:if="${session.ADMIN_ID!=null}">
+                                                        <td class="qty">
+                                                            <span id = "qty" th:text="${datePerQtyList.qty}"></span>
+                                                            <a th:onclick="|javascript:openChild('${datePerQtyList.id}')|" class="btn btn-primary btn-block">변경</a>
+                                                            <a th:onclick="|javascript:end('${datePerQtyList.id}')|" class="btn btn-primary btn-block" style="background-color: black; border:none;">마감</a>
+                                                        </td>
+                                                        <td class = "last_qty" th:text="|${datePerQtyList.last_qty} / ${datePerQtyList.qty}명|"></td>
+                                                        </span>
+                                                        <td>
+                                                            <span th:if="${datePerQtyList.qty<=datePerQtyList.real_qty}">
+                                                            <button class="btn btn-primary btn-block" style="background-color: gray; border:none; border-radius:3px">예약불가</button>
+                                                            </span>
+                                                            <span th:if="${datePerQtyList.qty>datePerQtyList.real_qty}">
+                                                                <a th:href="@{/dinner/info/{now_date}/save (now_date=${datePerQtyList.now_date})}"> <button class="btn btn-primary btn-block"> 예약하기 </button></a>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </div>
+                                            </table>
+
+                                    </div>
+                                    </div>
+                                </span>
+                                </div>
+
+                            <div class="card-footer text-center py-3">
+                                    <span class="small"><a th:href="@{/dinner/info/dateOfQty}">HOME</a></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </main>
+    </div>
+
+    <div id="layoutAuthentication_footer">
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Rapigen </div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="js/scripts.js"></script>
+<script type="text/javascript" th:src="@{/js/logOut.js}"></script>
+<script type="text/javascript" th:src="@{/js/clock.js}"></script>
+
+</body>
+</html>
