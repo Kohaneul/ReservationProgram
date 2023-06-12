@@ -4,16 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Arrays;
 /**
  * 로그인 인터셉터
  * 로그인 성공하면 로그인 관련 세션 (key : SessionConst.LOGIN_SUCCESS) 생성 -> 이 세션이 있어야 게시글의 수정, 삭제 가능

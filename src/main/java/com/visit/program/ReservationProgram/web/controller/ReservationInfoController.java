@@ -10,8 +10,6 @@ import com.visit.program.ReservationProgram.domain.ex.ReviseCountExcess;
 import com.visit.program.ReservationProgram.domain.service.EmployeeService;
 import com.visit.program.ReservationProgram.domain.service.ReservationService;
 import com.visit.program.ReservationProgram.domain.service.VisitorService;
-import com.visit.program.ReservationProgram.web.controller.path.AbstractPath;
-import com.visit.program.ReservationProgram.web.controller.path.PathChange;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import java.util.HashMap;
@@ -29,7 +27,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import static com.visit.program.ReservationProgram.domain.dao.session.SessionConst.ACCESS_METHOD;
 
 @Controller
 @Slf4j
@@ -49,7 +46,7 @@ public class ReservationInfoController {
     @GetMapping("/{employee_id}/all")
     public String viewMyVisitors(@PathVariable("employee_id") Long employee_id, @ModelAttribute("reservationDTO") MyReservationDTO reservationDTO, Model model
     ){
-        String path =  "view/viewMyVisitor";
+        String path =  "visit/viewMyVisitor";
         String loginId = employeeService.findById(employee_id).getLoginId();
         reservationDTO.setEmployee_id(employee_id);
         List<Reservation> reservations = reservationService.findMyVisitors(reservationDTO);
@@ -60,10 +57,8 @@ public class ReservationInfoController {
     }
     @GetMapping("/save")
     public String saveInfo(@ModelAttribute("visitor")SaveVisitor visitor,HttpSession session){
-        String path = "view/SaveForm";
         setData(visitor, session);
-        path = PathChange.setAccessMethod(session.getAttribute(ACCESS_METHOD).toString(),path);
-        return path;
+        return "visit/SaveForm";
     }
 
     public void setData(SaveVisitor visitor, HttpSession session) {
@@ -92,7 +87,7 @@ public class ReservationInfoController {
 
     @PostMapping("/save")
     public String saveInfo(@Valid @ModelAttribute(name = "visitor") SaveVisitor visitor, BindingResult bindingResult,Model model,HttpSession session) throws IllegalAccessException {
-        String path = "view/SaveForm";
+        String path = "visit/SaveForm";
         String wrongPhoneNumber = wrongPhoneNumber(visitor.getPhone_number());
         if(wrongPhoneNumber!=null){
             model.addAttribute("wrongPhoneNumber",wrongPhoneNumber);
@@ -154,25 +149,19 @@ public class ReservationInfoController {
         model.addAttribute("reservation", reservationInfo);
         session.removeAttribute(SessionConst.LOGIN_SUCCESS);
         session.removeAttribute(SessionConst.DINNER_PROGRAM);
-        return "view/ViewOne";
+        return "visit/ViewOne";
     }
 
     @GetMapping("/update/{reservationId}")
-    public String updateInfo(@PathVariable("reservationId") Long reservationId,@SessionAttribute(ACCESS_METHOD)String access, Model model) {
-        String url = "view/UpdateForm";
+    public String updateInfo(@PathVariable("reservationId") Long reservationId,Model model) {
+        String url = "visit/UpdateForm";
 
         Reservation reservation = reservationService.findOne(reservationId);
         Visitor beforeVisitor = visitorService.findOne(reservation.getVisitor_id());
         UpdateVisitor updateVisitor = updateVisitor(beforeVisitor);
         model.addAttribute("reservationId",reservationId);
         model.addAttribute("visitor",updateVisitor);
-        AbstractPath path = new AbstractPath() {
-            @Override
-            protected String call() {
-                return "redirect:/m/reservation/info/update/{reservationId}";
-            }
-        };
-        url = path.change(access,url);
+
         return  url;
     }
 
@@ -181,16 +170,13 @@ public class ReservationInfoController {
         int count = updateVisitor.getCount();
         ReviseCountEx(count);
         NoModificationEx(reservationId,updateVisitor);
-        String url = "view/UpdateForm";
+        String url = "visit/UpdateForm";
         if (bindingResult.hasErrors()) {
-            url = PathChange.setAccessMethod(session.getAttribute(ACCESS_METHOD).toString(),"view/UpdateForm");
             log.info("url={}",url);
-            return "view/UpdateForm";
+            return "visit/UpdateForm";
         }
             visitorService.updateInfo(updateVisitor);
             session.removeAttribute(SessionConst.LOGIN_SUCCESS);
-        log.info("url={}",url);
-
         return  "redirect:/reservation/info/{reservationId}";
     }
 

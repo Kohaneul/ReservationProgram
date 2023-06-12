@@ -1,6 +1,5 @@
 package com.visit.program.ReservationProgram.domain.dao;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -117,7 +117,7 @@ public class DinnerController {
 
     @GetMapping("/dateOfQty")
     public String dateOfQty(){
-        return "view2/ViewDateOfQty";
+        return "dinner/ViewDateOfQty";
     }
 
 
@@ -126,7 +126,7 @@ public class DinnerController {
         DateOfQty dateOfQty = service.selectDateOfQty(id);
         updateQty.setQty(dateOfQty.getQty());
         updateQty.setId(id);
-        return "view2/SetQty";
+        return "dinner/SetQty";
     }
     @PostMapping("/dateOfQty/{id}")
     public String searchDateOfQty(@ModelAttribute("updateQty")UpdateDateOfQty updateQty){
@@ -142,7 +142,7 @@ public class DinnerController {
         Integer lastQty = service.findLastQty(now_date);
         reservationSave.setVisit_date(now_date);
         model.addAttribute("hiddenQty",lastQty);
-        return "view2/SaveForm";
+        return "dinner/SaveForm";
     }
 
 
@@ -152,7 +152,7 @@ public class DinnerController {
 
         model.addAttribute("hiddenQty",lastQty);
         if(bindingResult.hasErrors()){
-            return "view2/SaveForm";
+            return "dinner/SaveForm";
         }
         Long savedId = service.save(reservationSave);
         Employee employee = employeeService.findByLoginId(reservationSave.getLoginId());
@@ -179,7 +179,7 @@ public class DinnerController {
     public String detailView(@PathVariable("id")Long id,Model model){
         DinnerReservation reservation = service.findOne(id);
         model.addAttribute("reservation",reservation);
-        return "view2/ViewOne";
+        return "dinner/ViewOne";
     }
 
 
@@ -197,14 +197,14 @@ public class DinnerController {
 
         model.addAttribute("reservation",reservation);
         model.addAttribute("hiddenValue",reservation.getVisit_date());
-        return "view2/UpdateForm";
+        return "dinner/UpdateForm";
 
     }
 
     @PostMapping("/update/{id}")
     public String updateView2(@PathVariable("id")Long id,@Valid @ModelAttribute("reservation")DinnerReservationUpdate reservation,BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "view2/UpdateForm";
+            return "dinner/UpdateForm";
         }
         service.updateInfo(reservation);
         return  "redirect:/dinner/info/{id}";
@@ -272,7 +272,7 @@ public class DinnerController {
 
     @GetMapping("/checkInfo")
     public String checkedDinnerInfo(){
-        return "view2/checkInfo";
+        return "dinner/checkInfo";
     }
 
     @PostMapping("/checkInfo")

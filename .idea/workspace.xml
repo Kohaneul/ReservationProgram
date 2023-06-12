@@ -4,7 +4,56 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd853263-500e-4cd7-adca-da00078c7ee7" name="Changes" comment="" />
+    <list default="true" id="dd853263-500e-4cd7-adca-da00078c7ee7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/ReservationConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/ReservationConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/domain/dao/DinnerInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/domain/dao/DinnerInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/domain/dao/session/SessionConst.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/domain/dao/session/SessionConst.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/domain/interceptor/LoginInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/domain/interceptor/LoginInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/domain/interceptor/MobileOrWebInterceptor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/web/controller/DinnerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/web/controller/DinnerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/web/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/web/controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/web/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/web/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/web/controller/MyErrorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/web/controller/MyErrorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/web/controller/ReservationInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/web/controller/ReservationInfoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/web/controller/mobile/MobileHomeController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/web/controller/mobile/MobileLoginController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/web/controller/mobile/MobileReservationInfoController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/web/controller/path/AbstractPath.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/web/controller/path/CutStr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/web/controller/path/CutStr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/web/controller/path/PathChange.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/visit/program/ReservationProgram/web/controller/path/PathChange.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/errors.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/reservation_info_mapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/reservation_info_mapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/mobile/view/All1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/mobile/view/All2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/mobile/view/Login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/mobile/view/SaveForm.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/mobile/view/SaveForm2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/mobile/view/UpdateForm.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/mobile/view/UpdatePassword.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/mobile/view/ViewOne.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/mobile/view/viewMyVisitor.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view/All1.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/visit/All1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view/All2.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/visit/All2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view/Login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/visit/Login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view/SaveForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/visit/SaveForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view/UpdateForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/visit/UpdateForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view/UpdatePassword.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/visit/UpdatePassword.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view/ViewOne.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/visit/ViewOne.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view/viewMyVisitor.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/visit/viewMyVisitor.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view2/All1.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dinner/All1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view2/All2.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dinner/All2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view2/Login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dinner/Login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view2/SaveForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dinner/SaveForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view2/SetQty.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dinner/SetQty.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view2/UpdateForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dinner/UpdateForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view2/ViewDateOfQty.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dinner/ViewDateOfQty.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view2/ViewOne.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dinner/ViewOne.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view2/checkInfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dinner/checkInfo.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,21 +87,30 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="downloadAnnotationsAutomatically" value="true" />
+        <option name="downloadDocsAutomatically" value="true" />
+        <option name="downloadSourcesAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
   <component name="ProjectId" id="2Qmn5XMSVGq8IxhqPuzXT5tiXYZ" />
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/Desktop/myproj/Visit-and-Dinner-Reservation/build.gradle&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.3505747&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/USER/Desktop/myproj/DinnerProgram/build.gradle",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.3505747",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.importing"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="ReservationProgramApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.visit.program.ReservationProgram.ReservationProgramApplication" />
@@ -83,6 +141,17 @@
       <updated>1685967445085</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

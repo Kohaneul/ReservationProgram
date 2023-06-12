@@ -24,14 +24,6 @@ public class MyErrorController implements ErrorController {
         CutStr.ex(message,request,response,2);
     }
 
-//    private void ex(String message, HttpServletRequest request, HttpServletResponse response) throws IOException {
-//        String referURL = request.getHeader("REFERER");
-//        response.setContentType("text/html; charset=UTF-8");
-//        PrintWriter out = response.getWriter();
-//        referURL=referURL.substring(referURL.indexOf("r")-1);
-//        out.println("<script>alert('"+message+"'); location.href='"+referURL+"';</script>");
-//        out.flush();
-//    }
 
     @ExceptionHandler(AlreadyCheckedEx.class)
     public void AlreadyCheckedEx(HttpServletRequest request, HttpServletResponse response) throws IOException {

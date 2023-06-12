@@ -9,7 +9,6 @@ import com.visit.program.ReservationProgram.domain.service.DinnerService;
 import com.visit.program.ReservationProgram.domain.service.EmployeeService;
 import com.visit.program.ReservationProgram.domain.service.LoginService;
 import com.visit.program.ReservationProgram.domain.service.ReservationService;
-import com.visit.program.ReservationProgram.web.controller.path.AbstractPath;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -18,7 +17,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -40,15 +38,8 @@ public class LoginController {
     }
 
     @GetMapping("/reservation/login/{reservationId}")
-    public String login(@SessionAttribute(SessionConst.ACCESS_METHOD) String method, @PathVariable("reservationId") Long reservationId, @ModelAttribute("login") Login login) {
-        String url = "view/Login";
-        AbstractPath path = new AbstractPath() {
-            @Override
-            protected String call() {
-                return "redirect:/m/reservation/login/{reservationId}";
-            }
-        };
-        return path.change(method, url);
+    public String login(@PathVariable("reservationId") Long reservationId, @ModelAttribute("login") Login login) {
+       return "view/Login";
     }
 
     @PostMapping("/reservation/login/{reservationId}")
@@ -70,7 +61,7 @@ public class LoginController {
     public String AdminLogin(@ModelAttribute("login") Login login,HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.removeAttribute(SessionConst.LOGIN_SUCCESS);
-        return "view2/Login";
+        return "dinner/Login";
     }
 
     @PostMapping("/dinner/info/admin")
@@ -84,12 +75,12 @@ public class LoginController {
             session.setAttribute(SessionConst.ADMIN_ID, UUID.randomUUID().toString().substring(0, 5) + "/" + emp.getId());
             return "redirect:/dinner/info/dateOfQty";
         }
-        return "view2/Login";
+        return "dinner/Login";
     }
 
     @GetMapping("/dinner/login/{id}")
     public String dinnerLogin(@PathVariable("id")Long id, @ModelAttribute("login")Login login){
-        return "view2/Login";
+        return "dinner/Login";
     }
 
     @PostMapping("/dinner/login/{id}")
@@ -99,7 +90,7 @@ public class LoginController {
         findEmployeeId(2,id,login,bindingResult);
         if(bindingResult.hasErrors()){
             model.addAttribute("errorMsg","아이디 or 비밀번호가 틀렸습니다.");
-            return "view2/Login";
+            return "dinner/Login";
         }
         HttpSession session = request.getSession();
         if(session.getAttribute(SessionConst.EMPLOYEE_ID)==null){

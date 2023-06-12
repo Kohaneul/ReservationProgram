@@ -4,7 +4,6 @@ import com.visit.program.ReservationProgram.domain.dao.Reservation;
 import com.visit.program.ReservationProgram.domain.dao.session.SessionConst;
 import com.visit.program.ReservationProgram.domain.dto.ReservationDTO;
 import com.visit.program.ReservationProgram.domain.service.ReservationService;
-import com.visit.program.ReservationProgram.web.controller.path.PathChange;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -80,7 +79,6 @@ public class HomeController {
             reservations = reservationService.findAllDTO(reservationDTO);
         }
         model.addAttribute("reservations",reservations);
-        url=PathChange.setAccessMethod(session.getAttribute(SessionConst.ACCESS_METHOD).toString(),url);
         return url;
     }
 

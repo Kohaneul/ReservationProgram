@@ -60,19 +60,6 @@
         delete from Reservation_info where id = #{id};
     </select>
 
-<!--    <select id = "findAllDTO" resultType="com.visit.program.ReservationProgram.domain.dao.Reservation">-->
-<!--        select r.id, v.name,v.employee_name,v.visit_date1,v.visit_date2,v.phone_number,v.withPerson,v.company,v.is_checked from Reservation_info r inner join visitor v on r.visitor_id = v.id-->
-<!--        <where>-->
-<!--            <if test="employee_name!=null and employee_name!=''">-->
-<!--                and v.employee_name like concat('%',#{employee_name},'%')-->
-<!--            </if>-->
-<!--            <if test="is_checked!=null and is_checked!=''">-->
-<!--                and r.is_checked like #{is_checked}-->
-<!--            </if>-->
-<!--        </where>-->
-<!--        order by r.id desc-->
-<!--    </select>-->
-
     <select id = "findAllDTO" resultType="com.visit.program.ReservationProgram.domain.dao.Reservation">
         select r.id,if(CHAR_LENGTH(v.purpose) <![CDATA[ <= ]]>8,v.purpose,concat(left(v.purpose,5),'..')) as purpose, v.name,v.employee_name,v.visit_date1,v.visit_date2,v.phone_number,v.withPerson,
         if(CHAR_LENGTH(v.company) <![CDATA[ <= ]]>5,v.company,concat(left(v.company,3),'..')) as company,v.is_checked from Reservation_info r inner join visitor v on r.visitor_id = v.id
