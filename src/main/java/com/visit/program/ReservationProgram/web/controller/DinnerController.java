@@ -70,9 +70,9 @@ public class DinnerController {
         dinnerReservationInfoThreadLocal.set(reservations);
         model.addAttribute("reservations",dinnerReservationInfoThreadLocal.get());
         if(session.getAttribute(SessionConst.ADMIN_ID)!=null){
-            return "view2/All2";
+            return "dinner/All2";
         }
-        return "view2/All1";
+        return "dinner/All1";
     }
 
     @ModelAttribute(name="renewDate")
