@@ -7,8 +7,7 @@
 ### 대상 : 본사 소속 직원, 경비실
 
 ### PROCESS 
-
-<img src="https://github.com/Kohaneul/ReservationProgram_final/assets/96707563/387731ca-9e3e-45a8-80e9-825a1c6de723.png" width="55%">
+![image](https://github.com/Kohaneul/ReservationProgram/assets/96707563/fac4a097-1875-4d9f-b30e-85f3e9b1030d)
 
 ### 개발툴 
 `Java11, SpringBoot, Gradle, MySQL, AJAX, JavaScript, MyBatis, HTML, CSS, Thymeleaf, LINUX CENTOS 7`
