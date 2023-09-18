@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,17 +21,17 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class HomeController {
     private final ReservationService reservationService;
+
     @GetMapping("/")
     @ResponseBody
-    public String home(){return "해당 페이지에 접근할 수 없습니다. 다시 접속해주세요";}
+    public String home() {
+        return "해당 페이지에 접근할 수 없습니다. 다시 접속해주세요";
+    }
 
 
-
-
-
-    @ModelAttribute(name="renewDate")
-    public String renewDate(){
-        return  LocalDateTime.now().format(DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss"));
+    @ModelAttribute(name = "renewDate")
+    public String renewDate() {
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss"));
     }
 
     @GetMapping("/reservation/info/all/rapigen_employee")
@@ -42,57 +42,44 @@ public class HomeController {
         return uri;
     }
 
-    private void AccessIdNull(HttpSession session,String uuid){
-        if(session.getAttribute(SessionConst.ACCESS_ID)==null){
+    private void AccessIdNull(HttpSession session, String uuid) {
+        if (session.getAttribute(SessionConst.ACCESS_ID) == null) {
             session.setAttribute(SessionConst.ACCESS_ID, uuid);
         }
     }
 
 
     @GetMapping("/reservation/info/all/rapigen_security")
-    public String viewSecurity(@ModelAttribute("reservationDTO")ReservationDTO reservationDTO,HttpSession session,Model model) {
-        String url =   "redirect:/reservation/info/all";
+    public String viewSecurity(@ModelAttribute("reservationDTO") ReservationDTO reservationDTO, HttpSession session, Model model) {
+        String url = "redirect:/reservation/info/all";
         session.removeAttribute(SessionConst.EMPLOYEE_ID);
 
         List<Reservation> reservations = reservationService.findAllDTO(reservationDTO);
-        AccessIdNull(session,UUID.randomUUID().toString()+"security");
-        model.addAttribute("reservations",reservations);
+        AccessIdNull(session, UUID.randomUUID().toString() + "security");
+        model.addAttribute("reservations", reservations);
         return url;
     }
 
     @GetMapping("/reservation")
-    public String redirectReservation(){
+    public String redirectReservation() {
         return "redirect:/reservation/info/all";
     }
 
 
     @GetMapping("/reservation/info/all")
-    public String viewAll(Model model,@ModelAttribute("reservationDTO")ReservationDTO reservationDTO,HttpSession session) {
+    public String viewAll(Model model, @ModelAttribute("reservationDTO") ReservationDTO reservationDTO, HttpSession session) {
         List<Reservation> reservations = null;
-        String url = "view/All1";
+        String url = "view/All_Emp";
         session.removeAttribute(SessionConst.LOGIN_SUCCESS);
-        if(session.getAttribute(SessionConst.ACCESS_ID).toString().contains("security")){
-            url = "view/All2";
+        if (session.getAttribute(SessionConst.ACCESS_ID).toString().contains("security")) {
+            url = "view/All_Sec";
             reservations = reservationService.findAllDTO2(reservationDTO);
-        }
-        else{
+        } else {
             reservations = reservationService.findAllDTO(reservationDTO);
         }
-        model.addAttribute("reservations",reservations);
+        model.addAttribute("reservations", reservations);
         return url;
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
